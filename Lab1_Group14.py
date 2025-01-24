@@ -8,7 +8,7 @@ import random
 import string
 
 # Asks the user to input their desired length of the password
-def uservalidation():
+def user_validation():
     whileloopcondition = 0
     while whileloopcondition < 1:
         try:
@@ -25,30 +25,33 @@ def uservalidation():
             print("Password must be between a whole number integer:")
 
 # Asking the user how many of each character type
-def PasswordDetails(length):
+def password_details(length):
     whilecondition = 0
     totallength = length
     while whilecondition < 1:
         try:
             num_letters = int(input("How many letters do you want the password to have?: "))
-            if num_letters >= 0 and num_letters <= totallength and num_letters.is_integer():
-                totallength = totallength - num_letters
-
+            if 0 <= num_letters <= totallength:
+                totallength -= num_letters
                 num_digits = int(input("How many digits do you want the password to have?: "))
-                if num_digits >= 0 and num_digits <= totallength and num_digits.is_integer():
-                    totallength = totallength - num_digits
-
+                if 0 <= num_digits <= totallength:
+                    totallength -= num_digits
                     num_special = int(input("How many special characters do you want the password to have?: "))
-                    if num_special >= 0 and num_special <= totallength and num_special.is_integer():
-
+                    if num_special == totallength:
                         return num_letters, num_digits, num_special
+                    else:
+                        print(f"Your password length is {length}.\nEnsure that your parameters are less than {length}.")
+                else:
+                    print(f"Your password length is {length}.\nEnsure that your parameters are less than {length}.")
+            else:
+                print(f"Your password length is {length}.\nEnsure that your parameters are less than {length}.")
 
-        except:
+        except ValueError:
             print(f"Your password length is {passwordlength}.\nEnsure that your parameters are less than {passwordlength}.")
 
 
 # Generates the Password based on the parameters set by the user
-def PasswordGenerator(num_letters, num_digits, num_special):
+def password_generator(num_letters, num_digits, num_special):
     pass_list = []
     for i in range(num_letters):
         pass_list.append(random.choice(string.ascii_letters))
@@ -64,10 +67,10 @@ def PasswordGenerator(num_letters, num_digits, num_special):
 if __name__ == '__main__':
 
     # Calls the functions with the required variables to be able to calculate and store everything required
-    passwordlength = uservalidation()
-    num_letters, num_digits, num_special = PasswordDetails(passwordlength)
-    Password = PasswordGenerator(num_letters, num_digits, num_special)
+    passwordlength = user_validation()
+    num_letters, num_digits, num_special = password_details(passwordlength)
+    Password = password_generator(num_letters, num_digits, num_special)
     # The user output
     print("This is your password:", Password)
     # Outputs the user's parameters
-    print ("Password sucessfully generated with!", "\n - Letters:", num_letters, "\n - Digits:", num_digits, "\n - Special Characters:", num_special)
+    print ("Password successfully generated with!", "\n - Letters:", num_letters, "\n - Digits:", num_digits, "\n - Special Characters:", num_special)
