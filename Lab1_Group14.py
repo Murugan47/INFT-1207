@@ -27,8 +27,8 @@ def user_validation():
 # Asking the user how many of each character type
 def password_details(length):
     whilecondition = 0
-    totallength = length
     while whilecondition < 1:
+        totallength = length
         try:
             num_letters = int(input("How many letters do you want the password to have?: "))
             if 0 <= num_letters <= totallength:
